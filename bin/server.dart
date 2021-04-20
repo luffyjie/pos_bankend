@@ -1,20 +1,31 @@
 import 'dart:convert';
-
+import 'dart:io';
+import 'package:mime/mime.dart';
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf/shelf_io.dart' as io;
 
 import 'api.dart';
 
-const _hostname = '192.168.0.113';
+const _hostname = '192.168.0.119';
 const _port = 8080;
 
 void main(List<String> args) async {
+  /// image
+  var uploadDir = 'upload';
+  var currentDirectory = Directory(uploadDir);
+  var images = [];
+  await for (var fileEntity in currentDirectory.list()) {
+    images.add(fileEntity.uri.path);
+  }
+
   /// Cascades handles
-  final handlerCascade = shelf.Cascade().add((request) {
+  final handlerCascade = shelf.Cascade().add((request) async {
     if (request.url.path == MposApi.login) {
-      var userAccount = request.url.queryParameters['userAccount'];
-      var password = request.url.queryParameters['password'];
-      if (userAccount == 'test001' && password == '2077_@mpos') {
+      var body = await request.readAsString();
+      var parameters = jsonDecode(body);
+      var userAccount = parameters['userAccount'];
+      var password = parameters['password'];
+      if (userAccount == 'Test' && password == '2077@test') {
         return shelf.Response.ok(
           json.encode(MposApi.loginResult),
           encoding: Encoding.getByName('utf-8'),
@@ -24,25 +35,50 @@ void main(List<String> args) async {
     }
     return shelf.Response.notFound('not found');
   }).add((request) {
-    if (request.url.path == MposApi.channelList) {
-      var businessType = request.url.queryParameters['businessType'];
-      var type = int.tryParse(businessType);
-      var data;
-      switch (type) {
-        case 1:
-          data = json.encode(MposApi.channelListCashinResult);
-          break;
-        case 2:
-          data = json.encode(MposApi.channelListSendResult);
-          break;
-        default:
-          return shelf.Response.notFound('not found');
-      }
+    if (request.url.path == MposApi.queryUserInfo) {
       return shelf.Response.ok(
-        data,
+        json.encode(MposApi.queryUserInfoResult),
         encoding: Encoding.getByName('utf-8'),
         headers: {'Content-Type': 'application/json'},
       );
+    }
+    return shelf.Response.notFound('not found');
+  }).add((request) async {
+    if (request.url.path == MposApi.channelList) {
+      var body = await request.readAsString();
+      var parameters = jsonDecode(body);
+      var businessType = parameters['businessType'];
+      switch (businessType) {
+        case 1:
+          return shelf.Response.ok(
+            json.encode(MposApi.channelListCashinResult),
+            encoding: Encoding.getByName('utf-8'),
+            headers: {'Content-Type': 'application/json'},
+          );
+        case 2:
+          return shelf.Response.ok(
+            json.encode(MposApi.channelListSendResult),
+            encoding: Encoding.getByName('utf-8'),
+            headers: {'Content-Type': 'application/json'},
+          );
+        default:
+          return shelf.Response.notFound('not found');
+      }
+    }
+    return shelf.Response.notFound('not found');
+  }).add((request) async {
+    var pathSegments = request.url.pathSegments;
+    if (pathSegments.first == MposApi.upload) {
+      var file = File(request.url.path);
+      if (await file.exists()) {
+        var fileStream = file.openRead();
+        return shelf.Response.ok(
+          fileStream,
+          headers: {
+            'Content-Type': lookupMimeType(request.url.path) ?? 'image/png'
+          },
+        );
+      }
     }
     return shelf.Response.notFound('not found');
   }).add((request) {

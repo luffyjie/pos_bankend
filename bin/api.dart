@@ -2,6 +2,9 @@ import 'buyload.dart';
 
 class MposApi {
   /// parameter cotains [userAccount] [password]
+  static final upload = 'upload';
+
+  /// parameter cotains [userAccount] [password]
   static final login = 'api/v1/user/login';
   static final loginResult = {
     'code': 200,
@@ -39,7 +42,7 @@ class MposApi {
             'channelName': 'GCash',
             'hasEnabled': 1,
             'channelId': 1,
-            'channelLogo': '/mposImage/gcash.png'
+            'channelLogo': '/gcash.png'
           }
         ]
       },
@@ -50,25 +53,25 @@ class MposApi {
             'channelName': 'BPI',
             'hasEnabled': 1,
             'channelId': 26,
-            'channelLogo': '/mposImage/BPI.png'
+            'channelLogo': '/BPI.png'
           },
           {
             'channelName': 'BDO',
             'hasEnabled': 1,
             'channelId': 27,
-            'channelLogo': '/mposImage/BDO.png'
+            'channelLogo': '/BDO.png'
           },
           {
             'channelName': 'Metrobank',
             'hasEnabled': 1,
             'channelId': 28,
-            'channelLogo': '/mposImage/metrobank.png'
+            'channelLogo': '/metrobank.png'
           },
           {
             'channelName': 'More',
             'hasEnabled': 1,
             'channelId': 29,
-            'channelLogo': '/mposImage/more.png'
+            'channelLogo': '/more.png'
           }
         ]
       }
@@ -85,25 +88,25 @@ class MposApi {
             'channelName': 'GCash',
             'hasEnabled': 1,
             'channelId': 4,
-            'channelLogo': '/mposImage/gcash.png'
+            'channelLogo': '/gcash.png'
           },
           {
             'channelName': 'PayMaya',
             'hasEnabled': 1,
             'channelId': 6,
-            'channelLogo': '/mposImage/paymaya.png'
+            'channelLogo': '/paymaya.png'
           },
           {
             'channelName': 'Coins.ph',
             'hasEnabled': 1,
             'channelId': 7,
-            'channelLogo': '/mposImage/coins.png'
+            'channelLogo': '/coins.png'
           },
           {
             'channelName': 'Grab Pay',
             'hasEnabled': 1,
             'channelId': 8,
-            'channelLogo': '/mposImage/grabpay.png'
+            'channelLogo': '/grabpay.png'
           }
         ]
       },
@@ -114,7 +117,7 @@ class MposApi {
             'channelName': 'Cebuana Lhuillier',
             'hasEnabled': 1,
             'channelId': 30,
-            'channelLogo': '/mposImage/Lhuillier.png'
+            'channelLogo': '/Lhuillier.png'
           }
         ]
       },
@@ -125,25 +128,25 @@ class MposApi {
             'channelName': 'BPI',
             'hasEnabled': 1,
             'channelId': 17,
-            'channelLogo': '/mposImage/BPI.png'
+            'channelLogo': '/BPI.png'
           },
           {
             'channelName': 'BDO',
             'hasEnabled': 1,
             'channelId': 18,
-            'channelLogo': '/mposImage/BDO.png'
+            'channelLogo': '/BDO.png'
           },
           {
             'channelName': 'Metrobank',
             'hasEnabled': 1,
             'channelId': 19,
-            'channelLogo': '/mposImage/metrobank.png'
+            'channelLogo': '/metrobank.png'
           },
           {
             'channelName': 'More',
             'hasEnabled': 1,
             'channelId': 20,
-            'channelLogo': '/mposImage/more.png'
+            'channelLogo': '/more.png'
           }
         ]
       }
@@ -162,7 +165,7 @@ class MposApi {
         {
           'methodId': 1,
           'methodName': 'Cash Wallet',
-          'methodLogo': '/mposImage/gcash.png',
+          'methodLogo': '/gcash.png',
           'serviceFee': 5.0,
           'currency': 'PHP',
         }
