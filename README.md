@@ -1,4 +1,4 @@
 A web server built using [Shelf](https://pub.dev/packages/shelf).
 
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+mpos_backend dart null-safety web service provide json rest API for MPOS App 
+基于dart 空安全开发的为mpos提供json rest风格接口数据的后端服务
