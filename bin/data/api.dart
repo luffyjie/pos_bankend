@@ -1,11 +1,10 @@
 import 'buyload.dart';
 
-class MposApi {
+class Mock {
   /// parameter cotains [userAccount] [password]
   static final upload = 'upload';
 
   /// parameter cotains [userAccount] [password]
-  static final login = 'api/v1/user/login';
   static final loginResult = {
     'code': 200,
     'data': {
@@ -17,7 +16,6 @@ class MposApi {
   };
 
   /// parameter cotains [token]
-  static final queryUserInfo = 'api/v1/user/queryUserInfo';
   static final queryUserInfoResult = {
     'code': 200,
     'data': {

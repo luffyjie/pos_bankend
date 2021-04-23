@@ -4,9 +4,9 @@ import 'package:mime/mime.dart';
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf/shelf_io.dart' as io;
 
-import 'api.dart';
+import 'data/api.dart';
 
-const _hostname = '192.168.0.119';
+const _hostname = '192.168.0.121';
 const _port = 8080;
 
 void main(List<String> args) async {
@@ -19,15 +19,21 @@ void main(List<String> args) async {
   }
 
   /// Cascades handles
-  final handlerCascade = shelf.Cascade().add((request) async {
-    if (request.url.path == MposApi.login) {
+  final handlerCascade = shelf.Cascade().add((request) {
+    if (request.url.path == 'say') {
+      var name = request.url.queryParameters['name'];
+      return shelf.Response.ok('get request test$name');
+    }
+    return shelf.Response.notFound('not found');
+  }).add((request) async {
+    if (request.url.path == 'api/v1/user/login') {
       var body = await request.readAsString();
       var parameters = jsonDecode(body);
       var userAccount = parameters['userAccount'];
       var password = parameters['password'];
       if (userAccount == 'Test' && password == '2077@test') {
         return shelf.Response.ok(
-          json.encode(MposApi.loginResult),
+          json.encode(Mock.loginResult),
           encoding: Encoding.getByName('utf-8'),
           headers: {'Content-Type': 'application/json'},
         );
@@ -35,29 +41,29 @@ void main(List<String> args) async {
     }
     return shelf.Response.notFound('not found');
   }).add((request) {
-    if (request.url.path == MposApi.queryUserInfo) {
+    if (request.url.path == 'api/v1/user/queryUserInfo') {
       return shelf.Response.ok(
-        json.encode(MposApi.queryUserInfoResult),
+        json.encode(Mock.queryUserInfoResult),
         encoding: Encoding.getByName('utf-8'),
         headers: {'Content-Type': 'application/json'},
       );
     }
     return shelf.Response.notFound('not found');
   }).add((request) async {
-    if (request.url.path == MposApi.channelList) {
+    if (request.url.path == Mock.channelList) {
       var body = await request.readAsString();
       var parameters = jsonDecode(body);
       var businessType = parameters['businessType'];
       switch (businessType) {
         case 1:
           return shelf.Response.ok(
-            json.encode(MposApi.channelListCashinResult),
+            json.encode(Mock.channelListCashinResult),
             encoding: Encoding.getByName('utf-8'),
             headers: {'Content-Type': 'application/json'},
           );
         case 2:
           return shelf.Response.ok(
-            json.encode(MposApi.channelListSendResult),
+            json.encode(Mock.channelListSendResult),
             encoding: Encoding.getByName('utf-8'),
             headers: {'Content-Type': 'application/json'},
           );
@@ -68,7 +74,7 @@ void main(List<String> args) async {
     return shelf.Response.notFound('not found');
   }).add((request) async {
     var pathSegments = request.url.pathSegments;
-    if (pathSegments.first == MposApi.upload) {
+    if (pathSegments.first == Mock.upload) {
       var file = File(request.url.path);
       if (await file.exists()) {
         var fileStream = file.openRead();
