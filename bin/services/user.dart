@@ -14,7 +14,7 @@ class UserService {
       var parameters = jsonDecode(body);
       var userAccount = parameters['userAccount'];
       var password = parameters['password'];
-      if (userAccount == 'Test' && password == '2077@test') {
+      if (userAccount == 'Test' && password == '2077') {
         return Response.ok(
           json.encode(Mock.loginResult),
           encoding: Encoding.getByName('utf-8'),
