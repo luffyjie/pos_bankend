@@ -6,9 +6,6 @@ import 'package:shelf/shelf_io.dart' as io;
 
 import 'data/api.dart';
 
-const _hostname = '192.168.31.116';
-const _port = 8080;
-
 void main(List<String> args) async {
   /// image
   var uploadDir = 'upload';
@@ -106,6 +103,6 @@ void main(List<String> args) async {
       .addHandler(handlerCascade);
 
   /// Create a shelf server
-  final server = await io.serve(handler, _hostname, _port);
+  final server = await io.serve(handler, '192.168.31.116', 8080);
   print('Serving at http://${server.address.host}:${server.port}');
 }

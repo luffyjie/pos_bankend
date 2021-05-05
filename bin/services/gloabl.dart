@@ -2,6 +2,7 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 import 'cashIn.dart';
+import 'upload.dart';
 import 'user.dart';
 
 class GlobalService {
@@ -15,7 +16,7 @@ class GlobalService {
 
     router.mount('/api/v1/user/', UserService().router);
     router.mount('/api/v1/channel/', CashInService().router);
-
+    router.mount('/upload/', UploadService().router);
     router.all('/<ignored|.*>', (Request request) {
       return Response.notFound('Page not found');
     });
