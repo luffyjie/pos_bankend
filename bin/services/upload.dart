@@ -9,7 +9,7 @@ class UploadService {
     final router = Router();
 
     router.get('/<name>', (Request request, String name) async {
-      var file = File(request.url.path);
+      var file = File('upload/$name');
       if (await file.exists()) {
         var fileStream = file.openRead();
         return Response.ok(
