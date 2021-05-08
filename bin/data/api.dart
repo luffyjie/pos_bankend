@@ -9,8 +9,8 @@ class Mock {
     'code': 200,
     'data': {
       'token': '27425379843464',
-      'cashWallet': 1201,
-      'loadWallet': 1826,
+      'cashWallet': 1201.0,
+      'loadWallet': 1826.0,
     },
     'message': 'success'
   };
@@ -20,8 +20,8 @@ class Mock {
     'code': 200,
     'data': {
       'currency': 'PHP',
-      'cashWallet': 900,
-      'loadWallet': 1200,
+      'cashWallet': 11900.0,
+      'loadWallet': 21200.0,
     },
     'message': 'success'
   };
@@ -846,6 +846,24 @@ class Mock {
   static final initConfigResult = {
     'code': 200,
     'data': {
+      'feeList': [
+        {
+          'methodId': 1,
+          'methodName': 'Cash In',
+          'methodLogo': '/gcash.png',
+          'serviceFee': 10.00,
+          'currency': 'PHP',
+          'busniessType': 1,
+        },
+        {
+          'methodId': 2,
+          'methodName': 'Send',
+          'methodLogo': '/gcash.png',
+          'serviceFee': 20.00,
+          'currency': 'PHP',
+          'busniessType': 1,
+        }
+      ],
       'initConfigList': [
         {
           'operatorId': 3,

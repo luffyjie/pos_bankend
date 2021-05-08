@@ -25,8 +25,8 @@ class UserService {
 
     router.post('/queryUserInfo', (Request request) async {
       var token = request.headers['token'];
-      if (token == null) {
-        Response.ok(
+      if (token != null) {
+        return Response.ok(
           json.encode(Mock.queryUserInfoResult),
           encoding: Encoding.getByName('utf-8'),
           headers: {'Content-Type': 'application/json'},
